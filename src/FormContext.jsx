@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import axios from "axios";
 
 const initialFormData = {
   name: "",
@@ -27,8 +28,23 @@ export const FormProvider = ({ children }) => {
     }));
   };
 
+  const [information, setInformation] = useState([]);
+
+  const addInformation = async () => {
+    try {
+      const ressponse = await axios.post(
+        "http://localhost:3001/information",
+        formData
+      );
+      setInformation(ressponse.data);
+      console.log("saved");
+    } catch (error) {
+      console.error("failed to send data", error);
+    }
+  };
+
   return (
-    <FormContext.Provider value={{ formData, updateFormData }}>
+    <FormContext.Provider value={{ formData, updateFormData, addInformation }}>
       {children}
     </FormContext.Provider>
   );
