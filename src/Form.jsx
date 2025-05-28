@@ -1,21 +1,21 @@
 function Form() {
   return (
     <>
-      <form className="container card">
-        <h1>First Step</h1>
+      <form className="container card" dir="rtl">
+        <h1>مرحله اول</h1>
         <div className="input-group">
           <input type="text" id="name" className="form-input" required />
           <label htmlFor="name" className="form-label">
-            Your Name
+            نام شما
           </label>
         </div>
         <div className="input-group">
           <input type="text" id="email" className="form-input" required />
           <label htmlFor="email" className="form-label">
-            Your Email
+            ایمیل شما
           </label>
         </div>
-        <button className="form-button">Submit</button>
+        <button className="form-button">ارسال</button>
       </form>
     </>
   );
