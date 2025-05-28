@@ -1,7 +1,15 @@
 import { GoDot } from "react-icons/go";
 import { GoDotFill } from "react-icons/go";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Form() {
+  const [isTab1, setIsTab1] = useState(true);
+
+  const handleTabRoute = () => {
+    setIsTab1((prev) => !prev);
+  };
+
   return (
     <>
       <form className="container card" dir="rtl" noValidate>
@@ -79,8 +87,10 @@ function Form() {
         <div className="dots">
           <GoDot />
           <GoDot />
-          <GoDot />
-          <GoDot />
+          <Link to="/SecondPage">
+            <GoDot />
+          </Link>
+          <Link to="/">{isTab1 ? <GoDotFill /> : <GoDot />}</Link>
         </div>
       </form>
     </>
