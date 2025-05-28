@@ -3,6 +3,7 @@ import { GoDotFill } from "react-icons/go";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormData } from "./FormContext";
+import { useNavigate } from "react-router-dom";
 
 function Form() {
   const [isTab1, setIsTab1] = useState(true);
@@ -30,23 +31,29 @@ function Form() {
     setGender(e.target.value);
   };
 
+  const navigate = useNavigate();
+
+  const { updateFormData, addInformation } = useFormData();
+
   const handleForm = (e) => {
     e.preventDefault();
-    //somehow using useFormDAta and then:
+    updateFormData({
+      name: fullName,
+      phone,
+      birthdate,
+      gender,
+    });
+    addInformation();
     setFullName("");
     setPhone("");
     setBirthdate("");
     setGender("");
+    navigate("/second");
   };
 
   return (
     <>
-      <form
-        className="container card"
-        dir="rtl"
-        onSubmit={handleForm}
-        noValidate
-      >
+      <form className="container card" dir="rtl" onSubmit={handleForm}>
         <h1>مرحله اول</h1>
 
         <div className="input-group">
@@ -96,7 +103,6 @@ function Form() {
             value={gender}
             onChange={handleGender}
             required
-            defaultValue=""
           >
             <option value="" disabled>
               انتخاب جنسیت
