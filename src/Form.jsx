@@ -1,4 +1,5 @@
 import { GoDot } from "react-icons/go";
+import { GoDotFill } from "react-icons/go";
 
 function Form() {
   return (
@@ -75,7 +76,10 @@ function Form() {
         <button className="form-button" type="submit">
           ارسال
         </button>
-        <div>
+        <div className="dots">
+          <GoDot />
+          <GoDot />
+          <GoDot />
           <GoDot />
         </div>
       </form>
