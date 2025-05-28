@@ -5,10 +5,9 @@ import { Link } from "react-router-dom";
 
 function Form() {
   const [isTab1, setIsTab1] = useState(true);
-
-  const handleTabRoute = () => {
-    setIsTab1((prev) => !prev);
-  };
+  const [isTab2, setIsTab2] = useState(false);
+  const [isTab3, setIsTab3] = useState(false);
+  const [isTab4, setIsTab4] = useState(false);
 
   return (
     <>
@@ -18,7 +17,7 @@ function Form() {
         <div className="input-group">
           <input type="text" id="name" className="form-input" required />
           <label htmlFor="name" className="form-label">
-            نام شما
+            نام کامل
           </label>
         </div>
 
@@ -49,47 +48,13 @@ function Form() {
           </select>
         </div>
 
-        <div className="input-group">
-          <input
-            type="text"
-            id="nationalId"
-            className="form-input"
-            required
-            pattern="^\d{10}$"
-          />
-          <label htmlFor="nationalId" className="form-label">
-            شماره ملی
-          </label>
-        </div>
-
-        <div className="input-group">
-          <input type="text" id="address" className="form-input" required />
-          <label htmlFor="address" className="form-label">
-            نشانی
-          </label>
-        </div>
-
-        <div className="input-group">
-          <textarea
-            id="symptoms"
-            className="form-input"
-            rows="4"
-            required
-          ></textarea>
-          <label htmlFor="symptoms" className="form-label">
-            علائم یا توضیحات
-          </label>
-        </div>
-
         <button className="form-button" type="submit">
           ارسال
         </button>
         <div className="dots">
-          <GoDot />
-          <GoDot />
-          <Link to="/SecondPage">
-            <GoDot />
-          </Link>
+          <Link to="/forth">{isTab4 ? <GoDotFill /> : <GoDot />}</Link>
+          <Link to="/third">{isTab3 ? <GoDotFill /> : <GoDot />}</Link>
+          <Link to="/second">{isTab2 ? <GoDotFill /> : <GoDot />}</Link>
           <Link to="/">{isTab1 ? <GoDotFill /> : <GoDot />}</Link>
         </div>
       </form>

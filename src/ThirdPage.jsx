@@ -3,55 +3,47 @@ import { useState } from "react";
 import { GoDot } from "react-icons/go";
 import { GoDotFill } from "react-icons/go";
 
-function SecondPage() {
+function ThirdPage() {
   const [isTab1, setIsTab1] = useState(false);
-  const [isTab2, setIsTab2] = useState(true);
-  const [isTab3, setIsTab3] = useState(false);
+  const [isTab2, setIsTab2] = useState(false);
+  const [isTab3, setIsTab3] = useState(true);
   const [isTab4, setIsTab4] = useState(false);
 
   return (
     <>
       <form className="container card" dir="rtl" noValidate>
-        <h1>مرحله دوم</h1>
+        <h1>مرحله سوم</h1>
         <div className="input-group">
-          <input
-            type="text"
-            id="nationalId"
-            className="form-input"
-            required
-            pattern="^\d{10}$"
-          />
-          <label htmlFor="nationalId" className="form-label">
-            شماره ملی
+          <input type="text" id="conditions" className="form-input" required />
+          <label htmlFor="conditions" className="form-label">
+            بیماری‌های زمینه‌ای
           </label>
         </div>
 
         <div className="input-group">
-          <input type="text" id="address" className="form-input" required />
-          <label htmlFor="address" className="form-label">
-            نشانی
+          <input type="text" id="medications" className="form-input" required />
+          <label htmlFor="medications" className="form-label">
+            داروهای مصرفی فعلی
+          </label>
+        </div>
+
+        <div className="input-group">
+          <input type="text" id="allergies" className="form-input" required />
+          <label htmlFor="allergies" className="form-label">
+            حساسیت دارویی یا غذایی
           </label>
         </div>
 
         <div className="input-group">
           <textarea
-            id="symptoms"
+            id="description"
             className="form-input"
             rows="4"
             required
           ></textarea>
-          <label htmlFor="symptoms" className="form-label">
-            علائم یا توضیحات
+          <label htmlFor="description" className="form-label">
+            توضیحات بیشتر یا شکایات اصلی بیمار
           </label>
-        </div>
-
-        <div className="input-group">
-          <select id="maritalStatus" className="form-input" required>
-            <option value="">انتخاب وضعیت تأهل</option>
-            <option value="single">مجرد</option>
-            <option value="married">متأهل</option>
-            <option value="other">غیره</option>
-          </select>
         </div>
 
         <button className="form-button" type="submit">
@@ -68,4 +60,4 @@ function SecondPage() {
   );
 }
 
-export default SecondPage;
+export default ThirdPage;

@@ -3,55 +3,57 @@ import { useState } from "react";
 import { GoDot } from "react-icons/go";
 import { GoDotFill } from "react-icons/go";
 
-function SecondPage() {
+function ForthPage() {
   const [isTab1, setIsTab1] = useState(false);
-  const [isTab2, setIsTab2] = useState(true);
+  const [isTab2, setIsTab2] = useState(false);
   const [isTab3, setIsTab3] = useState(false);
-  const [isTab4, setIsTab4] = useState(false);
+  const [isTab4, setIsTab4] = useState(true);
 
   return (
     <>
       <form className="container card" dir="rtl" noValidate>
-        <h1>مرحله دوم</h1>
+        <h1>مرحله چهارم</h1>
         <div className="input-group">
           <input
             type="text"
-            id="nationalId"
+            id="guardianName"
             className="form-input"
             required
-            pattern="^\d{10}$"
           />
-          <label htmlFor="nationalId" className="form-label">
-            شماره ملی
+          <label htmlFor="guardianName" className="form-label">
+            نام و نام خانوادگی فرد تأیید کننده
           </label>
         </div>
 
         <div className="input-group">
-          <input type="text" id="address" className="form-input" required />
-          <label htmlFor="address" className="form-label">
-            نشانی
-          </label>
-        </div>
-
-        <div className="input-group">
-          <textarea
-            id="symptoms"
+          <input
+            type="text"
+            id="relationship"
             className="form-input"
-            rows="4"
             required
-          ></textarea>
-          <label htmlFor="symptoms" className="form-label">
-            علائم یا توضیحات
+          />
+          <label htmlFor="relationship" className="form-label">
+            نسبت با بیمار
           </label>
         </div>
 
         <div className="input-group">
-          <select id="maritalStatus" className="form-input" required>
-            <option value="">انتخاب وضعیت تأهل</option>
-            <option value="single">مجرد</option>
-            <option value="married">متأهل</option>
-            <option value="other">غیره</option>
-          </select>
+          <input
+            type="text"
+            id="confirmationCode"
+            className="form-input"
+            required
+          />
+          <label htmlFor="confirmationCode" className="form-label">
+            کد تأیید
+          </label>
+        </div>
+
+        <div className="input-group">
+          <input type="text" id="signature" className="form-input" required />
+          <label htmlFor="signature" className="form-label">
+            کد ملی بیمار برای تأیید نهایی
+          </label>
         </div>
 
         <button className="form-button" type="submit">
@@ -68,4 +70,4 @@ function SecondPage() {
   );
 }
 
-export default SecondPage;
+export default ForthPage;
