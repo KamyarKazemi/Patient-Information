@@ -1,72 +1,101 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { GoDot } from "react-icons/go";
-import { GoDotFill } from "react-icons/go";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { GoDot, GoDotFill } from "react-icons/go";
+import { useFormData } from "./FormContext";
 
 function ForthPage() {
-  const [isTab1, setIsTab1] = useState(false);
-  const [isTab2, setIsTab2] = useState(false);
-  const [isTab3, setIsTab3] = useState(false);
-  const [isTab4, setIsTab4] = useState(true);
+  const navigate = useNavigate();
+  const { formData, updateFormData, sendFormData } = useFormData();
+
+  const [description, setDescription] = useState(formData.description || "");
+  const [guardianName, setGuardianName] = useState(formData.guardianName || "");
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setDescription(formData.description || "");
+    setGuardianName(formData.guardianName || "");
+  }, [formData]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Update context with last step data
+    updateFormData({
+      description,
+      guardianName,
+    });
+
+    setLoading(true);
+    const success = await sendFormData();
+    setLoading(false);
+
+    if (success) {
+      alert("فرم با موفقیت ارسال شد.");
+      navigate("/"); // back to start or confirmation page
+    } else {
+      setError("ارسال فرم با مشکل مواجه شد. لطفا دوباره تلاش کنید.");
+    }
+  };
 
   return (
-    <>
-      <form className="container card" dir="rtl" noValidate>
-        <h1>مرحله چهارم</h1>
-        <div className="input-group">
-          <input
-            type="text"
-            id="guardianName"
-            className="form-input"
-            required
-          />
-          <label htmlFor="guardianName" className="form-label">
-            نام و نام خانوادگی فرد تأیید کننده
-          </label>
-        </div>
+    <form
+      className="container card"
+      dir="rtl"
+      onSubmit={handleSubmit}
+      noValidate
+    >
+      <h1>مرحله چهارم</h1>
 
-        <div className="input-group">
-          <input
-            type="text"
-            id="relationship"
-            className="form-input"
-            required
-          />
-          <label htmlFor="relationship" className="form-label">
-            نسبت با بیمار
-          </label>
-        </div>
+      <div className="input-group">
+        <textarea
+          id="description"
+          className="form-input"
+          rows="4"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+        />
+        <label htmlFor="description" className="form-label">
+          شرح مشکل
+        </label>
+      </div>
 
-        <div className="input-group">
-          <input
-            type="text"
-            id="confirmationCode"
-            className="form-input"
-            required
-          />
-          <label htmlFor="confirmationCode" className="form-label">
-            کد تأیید
-          </label>
-        </div>
+      <div className="input-group">
+        <input
+          type="text"
+          id="guardianName"
+          className="form-input"
+          value={guardianName}
+          onChange={(e) => setGuardianName(e.target.value)}
+          required
+        />
+        <label htmlFor="guardianName" className="form-label">
+          نام سرپرست
+        </label>
+      </div>
 
-        <div className="input-group">
-          <input type="text" id="signature" className="form-input" required />
-          <label htmlFor="signature" className="form-label">
-            کد ملی بیمار برای تأیید نهایی
-          </label>
-        </div>
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
-        <button className="form-button" type="submit">
-          ارسال
-        </button>
-        <div className="dots">
-          <Link to="/forth">{isTab4 ? <GoDotFill /> : <GoDot />}</Link>
-          <Link to="/third">{isTab3 ? <GoDotFill /> : <GoDot />}</Link>
-          <Link to="/second">{isTab2 ? <GoDotFill /> : <GoDot />}</Link>
-          <Link to="/">{isTab1 ? <GoDotFill /> : <GoDot />}</Link>
-        </div>
-      </form>
-    </>
+      <button className="form-button" type="submit" disabled={loading}>
+        {loading ? "در حال ارسال..." : "ارسال فرم"}
+      </button>
+
+      <div className="dots">
+        <Link to="/forth">
+          <GoDotFill />
+        </Link>
+        <Link to="/third">
+          <GoDot />
+        </Link>
+        <Link to="/second">
+          <GoDot />
+        </Link>
+        <Link to="/">
+          <GoDot />
+        </Link>
+      </div>
+    </form>
   );
 }
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import axios from "axios";
 
 const initialFormData = {
@@ -14,37 +14,57 @@ const initialFormData = {
   medications: "",
   allergies: "",
   description: "",
+  guardianName: "", // added here to hold 4th step data
 };
 
 const FormContext = createContext();
 
 export const FormProvider = ({ children }) => {
   const [formData, setFormData] = useState(initialFormData);
+  const [information, setInformation] = useState(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("formData");
+    if (saved) {
+      setFormData(JSON.parse(saved));
+    }
+  }, []);
 
   const updateFormData = (newData) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      ...newData,
-    }));
+    setFormData((prev) => {
+      const updated = { ...prev, ...newData };
+      localStorage.setItem("formData", JSON.stringify(updated));
+      return updated;
+    });
   };
 
-  const [information, setInformation] = useState([]);
-
-  const addInformation = async () => {
+  // This is called ONLY at the last step to submit entire data
+  const sendFormData = async () => {
     try {
-      const ressponse = await axios.post(
+      const response = await axios.post(
         "http://localhost:3001/information",
         formData
       );
-      setInformation(ressponse.data);
-      console.log("saved");
+      console.log("Form data successfully saved:", response.data);
+      setInformation(response.data);
+      localStorage.removeItem("formData"); // clear storage on success
+      setFormData(initialFormData); // reset formData state
+      return true; // signal success
     } catch (error) {
-      console.error("failed to send data", error);
+      console.error("Failed to send form data:", error);
+      return false; // signal failure
     }
   };
 
   return (
-    <FormContext.Provider value={{ formData, updateFormData, addInformation }}>
+    <FormContext.Provider
+      value={{
+        formData,
+        updateFormData,
+        sendFormData,
+        information,
+      }}
+    >
       {children}
     </FormContext.Provider>
   );

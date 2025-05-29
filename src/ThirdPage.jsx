@@ -1,62 +1,99 @@
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { GoDot } from "react-icons/go";
-import { GoDotFill } from "react-icons/go";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { GoDot, GoDotFill } from "react-icons/go";
+import { useFormData } from "./FormContext";
 
 function ThirdPage() {
-  const [isTab1, setIsTab1] = useState(false);
-  const [isTab2, setIsTab2] = useState(false);
-  const [isTab3, setIsTab3] = useState(true);
-  const [isTab4, setIsTab4] = useState(false);
+  const navigate = useNavigate();
+  const { formData, updateFormData } = useFormData();
+
+  const [formValues, setFormValues] = useState({
+    conditions: formData.conditions || "",
+    medications: formData.medications || "",
+    allergies: formData.allergies || "",
+  });
+
+  useEffect(() => {
+    setFormValues({
+      conditions: formData.conditions || "",
+      medications: formData.medications || "",
+      allergies: formData.allergies || "",
+    });
+  }, [formData]);
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormValues((prev) => ({ ...prev, [id]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateFormData(formValues);
+    navigate("/forth");
+  };
 
   return (
-    <>
-      <form className="container card" dir="rtl" noValidate>
-        <h1>مرحله سوم</h1>
-        <div className="input-group">
-          <input type="text" id="conditions" className="form-input" required />
-          <label htmlFor="conditions" className="form-label">
-            بیماری‌های زمینه‌ای
-          </label>
-        </div>
+    <form className="container card" dir="rtl" onSubmit={handleSubmit}>
+      <h1>مرحله سوم</h1>
 
-        <div className="input-group">
-          <input type="text" id="medications" className="form-input" required />
-          <label htmlFor="medications" className="form-label">
-            داروهای مصرفی فعلی
-          </label>
-        </div>
+      <div className="input-group">
+        <textarea
+          id="conditions"
+          className="form-input"
+          rows="4"
+          value={formValues.conditions}
+          onChange={handleChange}
+        />
+        <label htmlFor="conditions" className="form-label">
+          وضعیت بیماری‌ها
+        </label>
+      </div>
 
-        <div className="input-group">
-          <input type="text" id="allergies" className="form-input" required />
-          <label htmlFor="allergies" className="form-label">
-            حساسیت دارویی یا غذایی
-          </label>
-        </div>
+      <div className="input-group">
+        <textarea
+          id="medications"
+          className="form-input"
+          rows="4"
+          value={formValues.medications}
+          onChange={handleChange}
+        />
+        <label htmlFor="medications" className="form-label">
+          داروهای مصرفی
+        </label>
+      </div>
 
-        <div className="input-group">
-          <textarea
-            id="description"
-            className="form-input"
-            rows="4"
-            required
-          ></textarea>
-          <label htmlFor="description" className="form-label">
-            توضیحات بیشتر یا شکایات اصلی بیمار
-          </label>
-        </div>
+      <div className="input-group">
+        <textarea
+          id="allergies"
+          className="form-input"
+          rows="4"
+          value={formValues.allergies}
+          onChange={handleChange}
+        />
+        <label htmlFor="allergies" className="form-label">
+          حساسیت‌ها
+        </label>
+      </div>
 
-        <button className="form-button" type="submit">
-          ارسال
-        </button>
-        <div className="dots">
-          <Link to="/forth">{isTab4 ? <GoDotFill /> : <GoDot />}</Link>
-          <Link to="/third">{isTab3 ? <GoDotFill /> : <GoDot />}</Link>
-          <Link to="/second">{isTab2 ? <GoDotFill /> : <GoDot />}</Link>
-          <Link to="/">{isTab1 ? <GoDotFill /> : <GoDot />}</Link>
-        </div>
-      </form>
-    </>
+      <button type="submit" className="form-button">
+        بعدی
+      </button>
+
+      <div className="dots">
+        <Link to="/forth">
+          <GoDot />
+        </Link>
+        <Link to="/third">
+          <GoDotFill />
+        </Link>
+        <Link to="/second">
+          <GoDot />
+        </Link>
+        <Link to="/">
+          <GoDot />
+        </Link>
+      </div>
+    </form>
   );
 }
 
