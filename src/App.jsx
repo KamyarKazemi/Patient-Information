@@ -4,7 +4,6 @@ import SecondPage from "./SecondPage";
 import ThirdPage from "./ThirdPage";
 import ForthPage from "./ForthPage";
 import { FormProvider } from "./FormContext";
-import Wizard from "./Wizard";
 
 function App() {
   return (
@@ -17,7 +16,6 @@ function App() {
           <Route path="/forth" element={<ForthPage />} />
         </Routes>
       </FormProvider>
-      <Wizard />
     </>
   );
 }

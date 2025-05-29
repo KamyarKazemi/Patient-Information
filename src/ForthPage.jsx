@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GoDot, GoDotFill } from "react-icons/go";
 import { useFormData } from "./FormContext";
+import Wizard from "./Wizard";
 
 function ForthPage() {
   const navigate = useNavigate();
@@ -70,9 +71,10 @@ function ForthPage() {
           onChange={(e) => setGuardianName(e.target.value)}
           required
         />
-        <label htmlFor="guardianName" className="form-label">
+        <label htmlFor="guardianName" className="form-label-forth">
           نام سرپرست
         </label>
+        <Wizard />
       </div>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
