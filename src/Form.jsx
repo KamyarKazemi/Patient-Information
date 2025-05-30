@@ -8,17 +8,15 @@ function Form() {
   const navigate = useNavigate();
   const { formData, updateFormData } = useFormData();
 
-  // Initialize with current context data for controlled inputs
   const [fullName, setFullName] = useState(formData.name || "");
   const [phone, setPhone] = useState(formData.phone || "");
   const [birthdate, setBirthdate] = useState(formData.birthdate || "");
   const [gender, setGender] = useState(formData.gender || "");
 
-  // For dots active state, mark current tab active
-  const isTab1 = true;
-  const isTab2 = false;
-  const isTab3 = false;
-  const isTab4 = false;
+  const [isTab1] = useState(true);
+  const [isTab2] = useState(false);
+  const [isTab3] = useState(false);
+  const [isTab4] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();

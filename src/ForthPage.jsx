@@ -21,7 +21,6 @@ function ForthPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Update context with last step data
     updateFormData({
       description,
       guardianName,
@@ -33,7 +32,7 @@ function ForthPage() {
 
     if (success) {
       alert("فرم با موفقیت ارسال شد.");
-      navigate("/"); // back to start or confirmation page
+      navigate("/");
     } else {
       setError("ارسال فرم با مشکل مواجه شد. لطفا دوباره تلاش کنید.");
     }

@@ -47,7 +47,7 @@ function ThirdPage() {
             onChange={handleChange}
           />
           <label htmlFor="conditions" className="form-label">
-            وضعیت بیماری‌ها
+            وضعیت بیماریها
           </label>
         </div>
 
@@ -73,7 +73,7 @@ function ThirdPage() {
             onChange={handleChange}
           />
           <label htmlFor="allergies" className="form-label">
-            حساسیت‌ها
+            حساسیتها
           </label>
           <Wizard />
         </div>

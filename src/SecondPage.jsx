@@ -16,7 +16,6 @@ function SecondPage() {
   });
 
   useEffect(() => {
-    // sync with formData if changed outside
     setFormValues({
       nationalId: formData.nationalId || "",
       address: formData.address || "",
